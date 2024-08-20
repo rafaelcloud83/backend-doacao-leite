@@ -34,5 +34,5 @@ build/
 
 ### depois do projeto pronto, colocar # nas linhas abaixo para liberar o envio ao github ###
 README.md
-Insomnia.json
+#Insomnia.json
 /src/main/resources/import.sql

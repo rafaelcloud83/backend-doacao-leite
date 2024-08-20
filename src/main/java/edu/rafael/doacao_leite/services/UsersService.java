@@ -1,0 +1,58 @@
+package edu.rafael.doacao_leite.services;
+
+import edu.rafael.doacao_leite.controllers.dtos.UserDto;
+import edu.rafael.doacao_leite.entities.Users;
+import edu.rafael.doacao_leite.repositories.UsersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UsersService {
+
+    @Autowired
+    private UsersRepository usersRepository;
+
+    public UserDto create(UserDto request) {
+        if (usersRepository.findByEmail(request.email()) != null) {
+            throw new RuntimeException("Já existe usuário com este email.");
+        }
+        Users user = new Users(request);
+
+        // encriptar senha TODO
+        //user.setPassword(request.password());
+
+        user = usersRepository.save(user);
+        return new UserDto(user);
+    }
+
+    public UserDto update(UserDto request) {
+        UserDto dto = getById(request.id());
+        Users updateUser = new Users(request);
+
+        // encriptar senha TODO
+
+        updateUser = usersRepository.save(updateUser);
+        return new UserDto(updateUser);
+    }
+
+    public List<UserDto> getAll() {
+        return usersRepository
+                .findAll()
+                .stream()
+                .map(user -> new UserDto(user))
+                .toList();
+    }
+
+    public UserDto getById(Long id) {
+        Users user = usersRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não existe."));
+        return new UserDto(user);
+    }
+
+    public void deleteById(Long id) {
+        UserDto dto = getById(id);
+        usersRepository.deleteById(dto.id());
+    }
+}
