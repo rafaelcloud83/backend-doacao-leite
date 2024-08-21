@@ -8,7 +8,7 @@ public enum Role {
     DOADOR("DOADOR"),
     RECEBEDOR("RECEBEDOR");
 
-    private final String role;
+    private String role;
 
     Role(String role) {
         this.role = role;

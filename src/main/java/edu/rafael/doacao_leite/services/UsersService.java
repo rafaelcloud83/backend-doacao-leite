@@ -15,7 +15,7 @@ public class UsersService {
     private UsersRepository usersRepository;
 
     public UserDto create(UserDto request) {
-        if (usersRepository.findByEmail(request.email()) != null) {
+        if (usersRepository.getEmail(request.email()) != null) {
             throw new RuntimeException("Já existe usuário com este email.");
         }
         Users user = new Users(request);
