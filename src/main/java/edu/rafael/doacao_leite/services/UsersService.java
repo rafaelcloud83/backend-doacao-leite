@@ -5,7 +5,6 @@ import edu.rafael.doacao_leite.entities.Users;
 import edu.rafael.doacao_leite.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +21,6 @@ public class UsersService {
         }
         Users user = new Users(request);
 
-        // encriptar senha TODO
         user.setPassword(new BCryptPasswordEncoder().encode(request.password()));
 
         user = usersRepository.save(user);
@@ -33,7 +31,7 @@ public class UsersService {
         UserDto dto = getById(request.id());
         Users updateUser = new Users(request);
 
-        // encriptar senha TODO
+        updateUser.setPassword(new BCryptPasswordEncoder().encode(request.password()));
 
         updateUser = usersRepository.save(updateUser);
         return new UserDto(updateUser);
