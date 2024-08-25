@@ -1,16 +1,16 @@
 package edu.rafael.doacao_leite.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.rafael.doacao_leite.controllers.dtos.UserDto;
 import edu.rafael.doacao_leite.entities.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,9 +18,12 @@ import java.util.List;
 @Table(name = "TB_USERS")
 @Getter
 @Setter
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Users implements UserDetails {
+@Configuration
+public class Users implements UserDetails, Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +38,20 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    //@OneToOne( mappedBy = "receiver") //referencia ao atributo da outra clsse
+    private Order receiver;
+    //@ManyToOne( mappedBy = "donor") //referencia ao atributo da outra clsse
+    private Order donor;
+
+    public Users(String name, String email, String password, Role role, Order receiver, Order donor) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.receiver = receiver;
+        this.donor = donor;
+    }
+
     public Users(String name, String email, String password, Role role) {
         this.name = name;
         this.email = email;
@@ -48,6 +65,8 @@ public class Users implements UserDetails {
         this.email = dto.email();
         this.password = dto.password();
         this.role = dto.role();
+        this.receiver = dto.receiver();
+        this.donor = dto.donor();
     }
 
     @Override
@@ -58,6 +77,8 @@ public class Users implements UserDetails {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", receiver=" + receiver +
+                ", donor=" + donor +
                 '}';
     }
 

@@ -18,6 +18,9 @@ public class TokenService {
     @Value("${jwt.secret}")
     private String secret;
 
+    @Value("${jwt.expiration}")
+    private int expiration;
+
     public String generateToken(Users user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -46,6 +49,6 @@ public class TokenService {
     }
 
     private Instant generateExpirationDate() {
-        return LocalDateTime.now().plusHours(12).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(expiration).toInstant(ZoneOffset.of("-03:00"));
     }
 }

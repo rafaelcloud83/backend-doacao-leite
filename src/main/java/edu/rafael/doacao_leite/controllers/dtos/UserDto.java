@@ -1,5 +1,6 @@
 package edu.rafael.doacao_leite.controllers.dtos;
 
+import edu.rafael.doacao_leite.entities.Order;
 import edu.rafael.doacao_leite.entities.Users;
 import edu.rafael.doacao_leite.entities.enums.Role;
 
@@ -8,11 +9,20 @@ public record UserDto(
         String name,
         String email,
         String password,
-        Role role
+        Role role,
+        Order receiver,
+        Order donor
 ) {
 
     public UserDto(Users user) {
-        this(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
+        this(user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole(),
+                user.getReceiver(),
+                user.getDonor()
+        );
     }
 
 }
