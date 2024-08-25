@@ -32,6 +32,7 @@ public class UsersService {
         Users updateUser = new Users(request);
 
         updateUser.setPassword(new BCryptPasswordEncoder().encode(request.password()));
+        updateUser.setCreatedAt(dto.createdAt()); //mantem a data de criação do usuário que está no banco
 
         updateUser = usersRepository.save(updateUser);
         return new UserDto(updateUser);

@@ -1,6 +1,5 @@
 package edu.rafael.doacao_leite.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.rafael.doacao_leite.controllers.dtos.UserDto;
 import edu.rafael.doacao_leite.entities.enums.Role;
 import jakarta.persistence.*;
@@ -11,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,40 +33,81 @@ public class Users implements UserDetails, Serializable {
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)
+    private String phone;
+    @Column(nullable = false)
+    private String address;
+    @Column(nullable = false)
     private String password;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(nullable = false)
+    private Boolean active;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE", nullable = false)
+    private Instant createdAt;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant updatedAt;
 
     //@OneToOne( mappedBy = "receiver") //referencia ao atributo da outra clsse
     private Order receiver;
     //@ManyToOne( mappedBy = "donor") //referencia ao atributo da outra clsse
     private Order donor;
 
-    public Users(String name, String email, String password, Role role, Order receiver, Order donor) {
+    public Users(String name, String email, String password, String phone,
+                 String address,Role role, Boolean active,
+                 Order receiver, Order donor) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.active = active;
         this.role = role;
         this.receiver = receiver;
         this.donor = donor;
     }
 
-    public Users(String name, String email, String password, Role role) {
+    public Users(String name, String email, String password, String phone,
+                 String address,Role role, Boolean active) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.active = active;
         this.role = role;
     }
+
+//    public Users(String name, String email, String password, Role role) {
+//        this.name = name;
+//        this.email = email;
+//        this.password = password;
+//        this.role = role;
+//    }
 
     public Users(UserDto dto) {
         this.id = dto.id();
         this.name = dto.name();
         this.email = dto.email();
         this.password = dto.password();
+        this.phone = dto.phone();
+        this.address = dto.address();
+        this.active = dto.active();
         this.role = dto.role();
         this.receiver = dto.receiver();
         this.donor = dto.donor();
+        this.createdAt = dto.createdAt();
+        this.updatedAt = dto.updatedAt();
+    }
+
+    @PrePersist
+    public void preCreate(){
+        createdAt = Instant.now();
+    }
+
+    @PreUpdate
+    public void preUpdate(){
+        updatedAt = Instant.now();
     }
 
     @Override
@@ -75,8 +116,13 @@ public class Users implements UserDetails, Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", active=" + active +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 ", receiver=" + receiver +
                 ", donor=" + donor +
                 '}';
