@@ -22,6 +22,7 @@ public class UsersService {
         Users user = new Users(request);
 
         user.setPassword(new BCryptPasswordEncoder().encode(request.password()));
+        user.setActive(true);
 
         user = usersRepository.save(user);
         return new UserDto(user);
