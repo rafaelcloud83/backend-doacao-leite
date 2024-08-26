@@ -30,7 +30,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users/create").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole("DOADOR", "RECEBEDOR")
                         .requestMatchers(HttpMethod.PUT, "/users/update").hasAnyRole("DOADOR", "RECEBEDOR")
                         .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
                         //.anyRequest().authenticated()
