@@ -3,7 +3,9 @@ package edu.rafael.doacao_leite.controllers;
 import edu.rafael.doacao_leite.controllers.dtos.AuthDto;
 import edu.rafael.doacao_leite.controllers.dtos.LoginResponseDto;
 import edu.rafael.doacao_leite.entities.Users;
+import edu.rafael.doacao_leite.repositories.UsersRepository;
 import edu.rafael.doacao_leite.security.TokenService;
+import edu.rafael.doacao_leite.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,9 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private UsersRepository usersRepository;
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody AuthDto data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
@@ -31,7 +36,9 @@ public class AuthenticationController {
 
         var token = tokenService.generateToken((Users) auth.getPrincipal());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponseDto(token));
+        var user = usersRepository.getEmail(data.email());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponseDto(token, user.getId().toString()));
     }
     //registro de usuário na classe UsersController(UsersService) com a rota POST /users/create
 }
