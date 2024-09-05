@@ -1,7 +1,8 @@
 package edu.rafael.doacao_leite.controllers;
 
-import edu.rafael.doacao_leite.entities.Order;
-import edu.rafael.doacao_leite.repositories.OrderRepository;
+import edu.rafael.doacao_leite.controllers.dtos.OrderDto;
+import edu.rafael.doacao_leite.entities.enums.OrderStatus;
+import edu.rafael.doacao_leite.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,40 +15,48 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<List<Order>> findAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(orderRepository.findAll());
+    public ResponseEntity<List<OrderDto>> findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> findById(@PathVariable("id") Long id) {
-        System.out.println("request -> "+id);
+    public ResponseEntity<OrderDto> findById(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).
-                body(orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found")));
+            body(orderService.getById(id));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Order> create(@RequestBody Order order) {
-        System.out.println("request -> "+order);
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderRepository.save(order));
+    public ResponseEntity<OrderDto> create(@RequestBody OrderDto request) {
+        System.out.println("request -> "+request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.create(request));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Order> update(@RequestBody Order order) {
-        //System.out.println("request -> "+order);
-        this.findById(order.getId());
-        //orderRepository.save(order);
-        //System.out.println("request salvo -> "+order);
-        return ResponseEntity.status(HttpStatus.OK).body(orderRepository.save(order));
+    public ResponseEntity<OrderDto> update(@RequestBody OrderDto request) {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.update(request));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        System.out.println("request -> "+id);
-        findById(id);
-        orderRepository.deleteById(id);
+        orderService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/receiver/{receptorId}")
+    public ResponseEntity<List<OrderDto>> getByReceptorId(@PathVariable("receptorId") Long receptorId) {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getByReceptorId(receptorId));
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<OrderDto>> getByStatus(@PathVariable("status") OrderStatus status) {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getByStatus(status));
+    }
+
+    @GetMapping("/donor/{doadorId}")
+    public ResponseEntity<List<OrderDto>> getByDoadorId(@PathVariable("doadorId") Long doadorId) {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getByDoadorId(doadorId));
     }
 }

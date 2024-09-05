@@ -2,6 +2,7 @@ package edu.rafael.doacao_leite;
 
 import edu.rafael.doacao_leite.entities.Order;
 import edu.rafael.doacao_leite.entities.Users;
+import edu.rafael.doacao_leite.entities.enums.OrderStatus;
 import edu.rafael.doacao_leite.entities.enums.Role;
 import edu.rafael.doacao_leite.repositories.OrderRepository;
 import edu.rafael.doacao_leite.repositories.UsersRepository;
@@ -50,13 +51,39 @@ public class DoacaoLeiteApplication implements CommandLineRunner {
 		usersRepository.save(user6);
 		usersRepository.save(user7);
 
-		Order order1 = new Order("Leite ninho", user2, user5);
-		Order order2 = new Order("Leite italac", user3, user6);
-		Order order3 = new Order("Leite nan", user4, user7);
-		Order order4 = new Order("Leite ninho po", user2, user7);
+		Order order1 = new Order("Ninho Fases 1 - Fórmula Infantil, 1.2 kg", "74,99",
+				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user2, null);
+		Order order2 = new Order("Fórmula Infantil Nestogeno 1 Nestlé 0 a 6 meses 800g", "56,99",
+				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user3, null);
+		Order order3 = new Order("Fórmula Infantil Nan Supreme 1 800g", "107,99",
+				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user4, null);
+		Order order4 = new Order("Ninho Fases 1 - Fórmula Infantil, 1.2 kg", "74,99",
+				Enum.valueOf(OrderStatus.class,"DOADO"), user4, user5);
+		Order order5 = new Order("Fórmula Infantil Nestogeno 1 Nestlé 0 a 6 meses 800g", "56,99",
+				Enum.valueOf(OrderStatus.class,"DOADO"), user2, user6);
+		Order order6 = new Order("Fórmula Infantil Nan Supreme 1 800g", "107,99",
+				Enum.valueOf(OrderStatus.class,"DOADO"), user3, user7);
+		Order order7 = new Order("Ninho Fases 1 - Fórmula Infantil, 1.2 kg", "74,99",
+				Enum.valueOf(OrderStatus.class,"CONCLUIDO"), user3, user6);
+		Order order8 = new Order("Fórmula Infantil Nestogeno 1 Nestlé 0 a 6 meses 800g", "56,99",
+				Enum.valueOf(OrderStatus.class,"CONCLUIDO"), user4, user7);
+		Order order9 = new Order("Fórmula Infantil Nan Supreme 1 800g", "107,99",
+				Enum.valueOf(OrderStatus.class,"CONCLUIDO"), user2, user5);
 		orderRepository.save(order1);
 		orderRepository.save(order2);
 		orderRepository.save(order3);
 		orderRepository.save(order4);
+		orderRepository.save(order5);
+		orderRepository.save(order6);
+		orderRepository.save(order7);
+		orderRepository.save(order8);
+		orderRepository.save(order9);
 	}
 }
+
+//Fórmula Infantil Aptamil Profutura 1 Danone Nutricia 800g - 89.33
+//Danone Nutricia - Aptanutri Premium 3, 1-3 anos, Fórmula de Seguimento, 800g - 66.99
+//Fórmula Infantil Nan Supreme 1 800g - 107.99
+//Nanlac Comfor - Fórmula Infantil, 800G - 62.99
+//Ninho Fases 1 - Fórmula Infantil, 1.2 kg - 74.99
+//Fórmula Infantil Nestogeno 1 Nestlé 0 a 6 meses 800g - 56.99
