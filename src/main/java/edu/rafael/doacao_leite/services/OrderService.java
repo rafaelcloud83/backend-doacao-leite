@@ -25,7 +25,7 @@ public class OrderService {
 
     //recebedor - id do recebedor
     //buscar todos pedidos do recebedor não filtrando por status
-    public List<OrderDto> getByReceptorId(Long receptorId) {
+    public List<OrderDto> getByReceiverId(Long receptorId) {
         return orderRepository
                 .findAllByReceiverId(receptorId)
                 .stream()
@@ -62,7 +62,7 @@ public class OrderService {
 
     //doador - id do doador
     //buscar todos os pedidos do doador filtrando por status Doado e Concluido
-    public List<OrderDto> getByDoadorId(Long doadorId) {
+    public List<OrderDto> getByDonorId(Long doadorId) {
         return orderRepository
                 .findAllByDonorId(doadorId)
                 .stream()
@@ -79,7 +79,6 @@ public class OrderService {
         OrderDto dto = getById(request.id());
         Order updateOrder = new Order(request);
         updateOrder.setCreatedAt(dto.createdAt()); //mantem a data de criação do pedido que está no banco
-
         updateOrder = orderRepository.save(updateOrder);
         return new OrderDto(updateOrder);
     }

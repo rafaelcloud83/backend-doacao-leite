@@ -5,7 +5,6 @@ import edu.rafael.doacao_leite.controllers.dtos.LoginResponseDto;
 import edu.rafael.doacao_leite.entities.Users;
 import edu.rafael.doacao_leite.repositories.UsersRepository;
 import edu.rafael.doacao_leite.security.TokenService;
-import edu.rafael.doacao_leite.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

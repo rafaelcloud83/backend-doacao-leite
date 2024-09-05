@@ -45,9 +45,9 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/receiver/{receptorId}")
-    public ResponseEntity<List<OrderDto>> getByReceptorId(@PathVariable("receptorId") Long receptorId) {
-        return ResponseEntity.status(HttpStatus.OK).body(orderService.getByReceptorId(receptorId));
+    @GetMapping("/receiver/{receiverId}")
+    public ResponseEntity<List<OrderDto>> getByReceiverId(@PathVariable("receiverId") Long receiverId) {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getByReceiverId(receiverId));
     }
 
     @GetMapping("/status/{status}")
@@ -55,8 +55,8 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.getByStatus(status));
     }
 
-    @GetMapping("/donor/{doadorId}")
-    public ResponseEntity<List<OrderDto>> getByDoadorId(@PathVariable("doadorId") Long doadorId) {
-        return ResponseEntity.status(HttpStatus.OK).body(orderService.getByDoadorId(doadorId));
+    @GetMapping("/donor/{donorId}")
+    public ResponseEntity<List<OrderDto>> getByDonorId(@PathVariable("donorId") Long donorId) {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getByDonorId(donorId));
     }
 }
