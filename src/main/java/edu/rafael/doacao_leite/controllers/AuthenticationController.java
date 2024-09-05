@@ -38,7 +38,12 @@ public class AuthenticationController {
 
         var user = usersRepository.getEmail(data.email());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponseDto(token, user.getId().toString()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponseDto(
+                token,
+                user.getId().toString(),
+                user.getName(),
+                user.getRole().toString())
+        );
     }
     //registro de usuário na classe UsersController(UsersService) com a rota POST /users/create
 }
