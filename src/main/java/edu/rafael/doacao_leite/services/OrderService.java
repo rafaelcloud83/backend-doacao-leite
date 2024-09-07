@@ -1,9 +1,11 @@
 package edu.rafael.doacao_leite.services;
 
 import edu.rafael.doacao_leite.controllers.dtos.OrderDto;
+import edu.rafael.doacao_leite.controllers.dtos.OrderResponseDto;
 import edu.rafael.doacao_leite.entities.Order;
 import edu.rafael.doacao_leite.entities.enums.OrderStatus;
 import edu.rafael.doacao_leite.repositories.OrderRepository;
+import edu.rafael.doacao_leite.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private UsersRepository usersRepository;
+
     public List<OrderDto> getAll() {
         return orderRepository
                 .findAll()
@@ -25,12 +30,15 @@ public class OrderService {
 
     //recebedor - id do recebedor
     //buscar todos pedidos do recebedor não filtrando por status
-    public List<OrderDto> getByReceiverId(Long receptorId) {
-        return orderRepository
-                .findAllByReceiverId(receptorId)
-                .stream()
-                .map(order -> new OrderDto(order))
-                .toList();
+    public OrderResponseDto getByReceiverId(Long receptorId) {
+        List<Order> allByReceiverId = orderRepository.findAllByReceiverId(receptorId);
+
+        return new OrderResponseDto(
+                allByReceiverId
+                        .stream()
+                        .map(order -> new OrderDto(order))
+                        .toList()
+        );
     }
 
     //recebedor
@@ -38,6 +46,7 @@ public class OrderService {
     public OrderDto create(OrderDto request) {
         Order order = new Order(request);
         order.setStatus(OrderStatus.AGUARDANDO);
+        order.setDonor(usersRepository.findById(1L).get()); //seta um doador padrão ao criar o pedido
         order = orderRepository.save(order);
         return new OrderDto(order);
     }

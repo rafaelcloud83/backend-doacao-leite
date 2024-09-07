@@ -1,6 +1,7 @@
 package edu.rafael.doacao_leite.controllers;
 
 import edu.rafael.doacao_leite.controllers.dtos.OrderDto;
+import edu.rafael.doacao_leite.controllers.dtos.OrderResponseDto;
 import edu.rafael.doacao_leite.entities.enums.OrderStatus;
 import edu.rafael.doacao_leite.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class OrderController {
     }
 
     @GetMapping("/receiver/{receiverId}")
-    public ResponseEntity<List<OrderDto>> getByReceiverId(@PathVariable("receiverId") Long receiverId) {
+    public ResponseEntity<OrderResponseDto> getByReceiverId(@PathVariable("receiverId") Long receiverId) {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.getByReceiverId(receiverId));
     }
 

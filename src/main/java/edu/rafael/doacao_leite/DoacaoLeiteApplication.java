@@ -29,6 +29,8 @@ public class DoacaoLeiteApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		Users user0 = new Users("Doador", "doador@email.com", "$2a$10$Em.2EoqjaYSuWCmw6U/Msuwa3x4.s87R7e5YtgC9qo1W1hdqC/S..",
+				"1","1",Enum.valueOf(Role.class,"DOADOR"),true);
 		Users user1 = new Users("Rafael", "rafael@email.com", "$2a$10$Em.2EoqjaYSuWCmw6U/Msuwa3x4.s87R7e5YtgC9qo1W1hdqC/S..",
 				"19981825684","rua brasil",Enum.valueOf(Role.class,"ADMIN"),true);
 		Users user2 = new Users("Mariana", "mariana@email.com", "$2a$10$Em.2EoqjaYSuWCmw6U/Msuwa3x4.s87R7e5YtgC9qo1W1hdqC/S..",
@@ -43,6 +45,7 @@ public class DoacaoLeiteApplication implements CommandLineRunner {
 				"11974879854","rua sorriso",Enum.valueOf(Role.class,"DOADOR"),true);
 		Users user7 = new Users("Joana", "joana@email.com", "$2a$10$Em.2EoqjaYSuWCmw6U/Msuwa3x4.s87R7e5YtgC9qo1W1hdqC/S..",
 				"12995552233","rua europa",Enum.valueOf(Role.class,"DOADOR"),true);
+		usersRepository.save(user0);
 		usersRepository.save(user1);
 		usersRepository.save(user2);
 		usersRepository.save(user3);
@@ -52,11 +55,11 @@ public class DoacaoLeiteApplication implements CommandLineRunner {
 		usersRepository.save(user7);
 
 		Order order1 = new Order("Ninho Fases 1 - Fórmula Infantil, 1.2 kg", "74,99",
-				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user2, null);
+				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user2, user0);
 		Order order2 = new Order("Fórmula Infantil Nestogeno 1 Nestlé 0 a 6 meses 800g", "56,99",
-				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user3, null);
+				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user3, user0);
 		Order order3 = new Order("Fórmula Infantil Nan Supreme 1 800g", "107,99",
-				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user4, null);
+				Enum.valueOf(OrderStatus.class,"AGUARDANDO"), user4, user0);
 		Order order4 = new Order("Ninho Fases 1 - Fórmula Infantil, 1.2 kg", "74,99",
 				Enum.valueOf(OrderStatus.class,"DOADO"), user4, user5);
 		Order order5 = new Order("Fórmula Infantil Nestogeno 1 Nestlé 0 a 6 meses 800g", "56,99",
