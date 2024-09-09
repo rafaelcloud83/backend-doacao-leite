@@ -29,8 +29,8 @@ public class DoacaoLeiteApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Users user0 = new Users("Doador", "doador@email.com", "$2a$10$Em.2EoqjaYSuWCmw6U/Msuwa3x4.s87R7e5YtgC9qo1W1hdqC/S..",
-				"1","1",Enum.valueOf(Role.class,"DOADOR"),true);
+		Users user0 = new Users("Nenhum", "nenhum@email.com", "$2a$10$Em.2EoqjaYSuWCmw6U/Msuwa3x4.s87R7e5YtgC9qo1W1hdqC/S..",
+				"1","nenhum",Enum.valueOf(Role.class,"DOADOR"),true);
 		Users user1 = new Users("Rafael", "rafael@email.com", "$2a$10$Em.2EoqjaYSuWCmw6U/Msuwa3x4.s87R7e5YtgC9qo1W1hdqC/S..",
 				"19981825684","rua brasil",Enum.valueOf(Role.class,"ADMIN"),true);
 		Users user2 = new Users("Mariana", "mariana@email.com", "$2a$10$Em.2EoqjaYSuWCmw6U/Msuwa3x4.s87R7e5YtgC9qo1W1hdqC/S..",

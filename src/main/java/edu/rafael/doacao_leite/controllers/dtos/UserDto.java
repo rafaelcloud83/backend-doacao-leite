@@ -1,6 +1,5 @@
 package edu.rafael.doacao_leite.controllers.dtos;
 
-import edu.rafael.doacao_leite.entities.Order;
 import edu.rafael.doacao_leite.entities.Users;
 import edu.rafael.doacao_leite.entities.enums.Role;
 
@@ -15,8 +14,6 @@ public record UserDto(
         String address,
         Boolean active,
         Role role,
-        Order receiver,
-        Order donor,
         Instant createdAt,
         Instant updatedAt
 ) {
@@ -30,8 +27,6 @@ public record UserDto(
                 user.getAddress(),
                 user.getActive(),
                 user.getRole(),
-                user.getReceiver(),
-                user.getDonor(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()
         );

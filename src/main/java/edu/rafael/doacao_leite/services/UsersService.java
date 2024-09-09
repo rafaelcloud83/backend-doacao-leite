@@ -48,13 +48,17 @@ public class UsersService {
     }
 
     public UserDto getById(Long id) {
-        Users user = usersRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não existe."));
+        Users user = getUserById(id);
         return new UserDto(user);
     }
 
     public void deleteById(Long id) {
         UserDto dto = getById(id);
         usersRepository.deleteById(dto.id());
+    }
+
+    public Users getUserById(Long id) {
+        return usersRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não existe."));
     }
 }
