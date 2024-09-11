@@ -28,12 +28,23 @@ public class OrderService {
     }
 
     //recebedor - id do recebedor
-    //buscar todos pedidos do recebedor não filtrando por status
-    public OrderResponseDto getByReceiverId(Long receptorId) {
-        List<Order> allByReceiverId = orderRepository.findAllByReceiverId(receptorId);
-
+    //buscar todos pedidos do recebedor não filtrando por status, mostra os 3 status
+    public OrderResponseDto getByReceiverId(Long receiverId) {
+        List<Order> allByReceiverId = orderRepository.findAllByReceiverId(receiverId);
         return new OrderResponseDto(
                 allByReceiverId
+                        .stream()
+                        .map(order -> new OrderDto(order))
+                        .toList()
+        );
+    }
+
+    //doador - id do doador
+    //buscar todos os pedidos do doador não filtrando por status, mostra 2 status (DOADO, CONCLUIDO)
+    public OrderResponseDto getByDonorId(Long donorId) {
+        List<Order> allByDonorId = orderRepository.findAllByDonorId(donorId);
+        return new OrderResponseDto(
+                allByDonorId
                         .stream()
                         .map(order -> new OrderDto(order))
                         .toList()
@@ -63,16 +74,6 @@ public class OrderService {
     public List<OrderDto> getByStatus(OrderStatus status) {
         return orderRepository
                 .findByStatus(status)
-                .stream()
-                .map(order -> new OrderDto(order))
-                .toList();
-    }
-
-    //doador - id do doador
-    //buscar todos os pedidos do doador filtrando por status Doado e Concluido
-    public List<OrderDto> getByDonorId(Long doadorId) {
-        return orderRepository
-                .findAllByDonorId(doadorId)
                 .stream()
                 .map(order -> new OrderDto(order))
                 .toList();

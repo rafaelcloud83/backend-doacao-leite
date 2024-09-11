@@ -57,7 +57,7 @@ public class OrderController {
     }
 
     @GetMapping("/donor/{donorId}")
-    public ResponseEntity<List<OrderDto>> getByDonorId(@PathVariable("donorId") Long donorId) {
+    public ResponseEntity<OrderResponseDto> getByDonorId(@PathVariable("donorId") Long donorId) {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.getByDonorId(donorId));
     }
 }
