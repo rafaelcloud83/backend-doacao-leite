@@ -52,7 +52,7 @@ public class OrderController {
     }
 
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<OrderDto>> getByStatus(@PathVariable("status") OrderStatus status) {
+    public ResponseEntity<OrderResponseDto> getByStatus(@PathVariable("status") OrderStatus status) {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.getByStatus(status));
     }
 

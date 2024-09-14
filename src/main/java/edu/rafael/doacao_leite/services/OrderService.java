@@ -51,6 +51,18 @@ public class OrderService {
         );
     }
 
+    //doador - status = AGUARDANDO
+    //buscar todos os pedidos que tem status Aguardando
+    public OrderResponseDto getByStatus(OrderStatus status) {
+        List<Order> allOrders = orderRepository.findByStatus(status);
+        return new OrderResponseDto(
+                allOrders
+                        .stream()
+                        .map(order -> new OrderDto(order))
+                        .toList()
+        );
+    }
+
     //recebedor
     //criar um pedido para este recebedor
     public OrderDto create(OrderDto request) {
@@ -67,16 +79,6 @@ public class OrderService {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido não existe."));
         return new OrderDto(order);
-    }
-
-    //doador - status = AGUARDANDO
-    //buscar todos os pedidos que tem status Aguardando
-    public List<OrderDto> getByStatus(OrderStatus status) {
-        return orderRepository
-                .findByStatus(status)
-                .stream()
-                .map(order -> new OrderDto(order))
-                .toList();
     }
 
     public void deleteById(Long id) {
