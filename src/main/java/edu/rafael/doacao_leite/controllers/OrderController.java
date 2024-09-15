@@ -19,7 +19,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<List<OrderDto>> findAll() {
+    public ResponseEntity<OrderResponseDto> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.getAll());
     }
 

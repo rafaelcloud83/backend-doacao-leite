@@ -19,12 +19,19 @@ public class OrderService {
     @Autowired
     private UsersService usersService;
 
-    public List<OrderDto> getAll() {
-        return orderRepository
-                .findAll()
-                .stream()
-                .map(order -> new OrderDto(order))
-                .toList();
+    public OrderResponseDto getAll() {
+        List<Order> allOrders = orderRepository.findAll();
+        return new OrderResponseDto(
+                allOrders
+                        .stream()
+                        .map(order -> new OrderDto(order))
+                        .toList()
+        );
+//        return orderRepository
+//                .findAll()
+//                .stream()
+//                .map(order -> new OrderDto(order))
+//                .toList();
     }
 
     public Long countAll() {
