@@ -23,6 +23,16 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.getAll());
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Long> count() {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.countAll());
+    }
+
+    @GetMapping("/count/{status}")
+    public ResponseEntity<Long> countByStatus(@PathVariable("status") String status) {
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.countByStatus(status));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> findById(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).

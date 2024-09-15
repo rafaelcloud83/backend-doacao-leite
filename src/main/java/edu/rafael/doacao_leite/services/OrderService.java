@@ -27,6 +27,15 @@ public class OrderService {
                 .toList();
     }
 
+    public Long countAll() {
+        return orderRepository.count();
+    }
+
+    public Long countByStatus(String status) {
+        return orderRepository.countByStatus(OrderStatus.valueOf(status));
+    }
+
+
     //recebedor - id do recebedor
     //buscar todos pedidos do recebedor não filtrando por status, mostra os 3 status
     public OrderResponseDto getByReceiverId(Long receiverId) {
@@ -93,4 +102,6 @@ public class OrderService {
         updateOrder = orderRepository.save(updateOrder);
         return new OrderDto(updateOrder);
     }
+
+
 }

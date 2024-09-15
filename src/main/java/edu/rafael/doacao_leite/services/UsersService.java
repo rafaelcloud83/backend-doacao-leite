@@ -2,6 +2,7 @@ package edu.rafael.doacao_leite.services;
 
 import edu.rafael.doacao_leite.controllers.dtos.UserDto;
 import edu.rafael.doacao_leite.entities.Users;
+import edu.rafael.doacao_leite.entities.enums.Role;
 import edu.rafael.doacao_leite.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,6 +48,14 @@ public class UsersService {
                 .toList();
     }
 
+    public Long countAll() {
+        return usersRepository.count();
+    }
+
+    public Long countByRole(String role) {
+        return usersRepository.countByRole(Role.valueOf(role));
+    }
+
     public UserDto getById(Long id) {
         Users user = getUserById(id);
         return new UserDto(user);
@@ -61,4 +70,6 @@ public class UsersService {
         return usersRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não existe."));
     }
+
+
 }

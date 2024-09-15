@@ -26,6 +26,17 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.OK).body(usersService.getAll());
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Long> count() {
+        Long countAll = usersService.countAll();
+        return ResponseEntity.status(HttpStatus.OK).body(countAll-1L);
+    }
+
+    @GetMapping("/count/{role}")
+    public ResponseEntity<Long> countByStatus(@PathVariable("role") String role) {
+        return ResponseEntity.status(HttpStatus.OK).body(usersService.countByRole(role));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(usersService.getById(id));

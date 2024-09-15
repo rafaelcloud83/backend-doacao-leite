@@ -15,4 +15,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllByDonorId(Long doadorId);
 
     List<Order> findAllByReceiverId(Long receptorId);
+
+    Long countByStatus(OrderStatus status);
 }
