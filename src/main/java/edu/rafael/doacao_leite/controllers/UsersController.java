@@ -1,13 +1,12 @@
 package edu.rafael.doacao_leite.controllers;
 
 import edu.rafael.doacao_leite.controllers.dtos.UserDto;
+import edu.rafael.doacao_leite.controllers.dtos.UserResponseDto;
 import edu.rafael.doacao_leite.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -22,7 +21,7 @@ public class UsersController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAll() {
+    public ResponseEntity<UserResponseDto> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(usersService.getAll());
     }
 

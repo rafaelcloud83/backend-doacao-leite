@@ -27,11 +27,6 @@ public class OrderService {
                         .map(order -> new OrderDto(order))
                         .toList()
         );
-//        return orderRepository
-//                .findAll()
-//                .stream()
-//                .map(order -> new OrderDto(order))
-//                .toList();
     }
 
     public Long countAll() {
@@ -109,6 +104,4 @@ public class OrderService {
         updateOrder = orderRepository.save(updateOrder);
         return new OrderDto(updateOrder);
     }
-
-
 }

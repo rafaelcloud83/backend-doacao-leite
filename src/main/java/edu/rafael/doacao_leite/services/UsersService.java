@@ -1,6 +1,7 @@
 package edu.rafael.doacao_leite.services;
 
 import edu.rafael.doacao_leite.controllers.dtos.UserDto;
+import edu.rafael.doacao_leite.controllers.dtos.UserResponseDto;
 import edu.rafael.doacao_leite.entities.Users;
 import edu.rafael.doacao_leite.entities.enums.Role;
 import edu.rafael.doacao_leite.repositories.UsersRepository;
@@ -40,12 +41,14 @@ public class UsersService {
         return new UserDto(updateUser);
     }
 
-    public List<UserDto> getAll() {
-        return usersRepository
-                .findAll()
-                .stream()
-                .map(user -> new UserDto(user))
-                .toList();
+    public UserResponseDto getAll() {
+        List<Users> allUsers = usersRepository.findAll();
+        return new UserResponseDto(
+                allUsers
+                        .stream()
+                        .map(user -> new UserDto(user))
+                        .toList()
+        );
     }
 
     public Long countAll() {
@@ -70,6 +73,4 @@ public class UsersService {
         return usersRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não existe."));
     }
-
-
 }
