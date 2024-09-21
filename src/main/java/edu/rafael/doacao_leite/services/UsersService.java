@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +32,7 @@ public class UsersService {
     }
 
     public UserDto update(UserDto request) {
-        UserDto dto = getById(request.id());
+        UserDto dto = getUserDtoById(request.id());
         Users updateUser = new Users(request);
 
         updateUser.setPassword(new BCryptPasswordEncoder().encode(request.password()));
@@ -59,18 +60,24 @@ public class UsersService {
         return usersRepository.countByRole(Role.valueOf(role));
     }
 
-    public UserDto getById(Long id) {
-        Users user = getUserById(id);
-        return new UserDto(user);
+    public UserResponseDto getById(Long id) {
+        List<UserDto> usersById = new ArrayList<>();
+        UserDto dto = getUserDtoById(id);
+        usersById.add(dto);
+        return new UserResponseDto(usersById);
     }
 
     public void deleteById(Long id) {
-        UserDto dto = getById(id);
+        UserDto dto = getUserDtoById(id);
         usersRepository.deleteById(dto.id());
     }
 
     public Users getUserById(Long id) {
         return usersRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não existe."));
+    }
+
+    public UserDto getUserDtoById(Long id) {
+        return new UserDto(getUserById(id));
     }
 }
