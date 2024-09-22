@@ -48,11 +48,6 @@ public class Users implements UserDetails, Serializable {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt;
 
-    //@OneToOne( mappedBy = "receiver") //referencia ao atributo da outra clsse
-    //private Order receiver;
-    //@ManyToOne( mappedBy = "donor") //referencia ao atributo da outra clsse
-    //private Order donor;
-
     public Users(String name, String email, String password, String phone,
                  String address,Role role, Boolean active) {
         this.name = name;

@@ -1,0 +1,57 @@
+// usuários
+SELECT * FROM tb_users;
+SELECT COUNT(*) FROM tb_users;
+SELECT id,email,name FROM tb_users WHERE role = 'RECEBEDOR';
+SELECT id,email,name FROM tb_users WHERE role = 'DOADOR';
+SELECT COUNT(*) FROM tb_users WHERE role = 'RECEBEDOR';
+SELECT COUNT(*) FROM tb_users WHERE role = 'DOADOR';
+
+
+// doações
+SELECT * FROM tb_order;
+SELECT COUNT(*) FROM tb_order;
+SELECT id,product_name,estimated_price,donor_id FROM tb_order 
+WHERE receiver_id = 4;
+SELECT id,product_name,estimated_price,donor_id FROM tb_order 
+WHERE donor_id = 6;
+SELECT id,product_name,estimated_price,donor_id,receiver_id 
+FROM tb_order WHERE status = 'AGUARDANDO';
+SELECT id,product_name,estimated_price,donor_id,receiver_id 
+FROM tb_order WHERE status = 'DOADO';
+SELECT id,product_name,estimated_price,donor_id,receiver_id 
+FROM tb_order WHERE status = 'CONCLUIDO';
+SELECT COUNT(*) FROM tb_order WHERE status = 'AGUARDANDO';
+SELECT COUNT(*) FROM tb_order WHERE status = 'DOADO';
+SELECT COUNT(*) FROM tb_order WHERE status = 'CONCLUIDO';
+
+
+// criar usuários padrão
+//admin = 56845684
+//nenhum = 5684;
+INSERT INTO tb_users (name, email, password, phone, address, role, created_at, updated_at, active) 
+VALUES ('Nenhum', 'nenhum@nenhum', '$2a$10$NqaH/qmV6vGUM3b4wK5hwuou4Ln4GP0jpZB9otgYyreGcRtTM00Za', '1', 'nenhum', 'DOADOR', TIMESTAMP WITH TIME ZONE '2000-01-01T03:00:00.000000Z', null, true),
+('ADMIN', 'admin@admin', '$2a$10$t8UOd.FtaL4NsyNPGwDzuODCx6CDXSKkgBytmmWQ1BLqzueB26/pa', '1', 'admin', 'ADMIN', TIMESTAMP WITH TIME ZONE '2000-01-01T03:00:00.000000Z', null, true);
+
+
+// usuários testes - senha=123
+INSERT INTO tb_users (active,created_at,updated_at,address,email,"name","password",phone,"role") VALUES
+(true,'2024-09-22 16:44:45.12693',NULL,'rua Vitória da Silva,  55, jd Ipiranga, americana','mario@email.com','Mario Alves','$2a$10$PcPS4mS3TR8I3fYujgVAy.rjJm4WrFcxr.7CIO52BxMKUNYzVj46O','19981565452','DOADOR'),
+(true,'2024-09-22 16:46:54.957331',NULL,'avenida Paulista, 23, jd colina,  americana','silvia@email.com','Silvia dos Santos','$2a$10$mVAX8E1LWzkI5rg8pn1u0uI2JHcHtEiQkXCJ7vl0cAIbMBvUCdYxS','1934622365','DOADOR'),
+(true,'2024-09-22 16:48:29.996625',NULL,'rua do centro,  78, centro,  americana','joao@email.com','João Batista de Oliveira','$2a$10$TBaRdnYTPPob93MwjWlBtO5YNuavL43cQN3cTg.8he.uoVGFu4wrO','11996321478','RECEBEDOR'),
+(true,'2024-09-22 16:51:05.571378',NULL,'avenida Brasil, 66, centro, americana','fabio@email.com','Fábio da Costa Lima','$2a$10$Beo7SF8XX6EukVnygyldDeOpKwQmU2/a3R.mDGm0OoFxQ2SVTenJ2','19963254189','DOADOR'),
+(true,'2024-09-22 16:53:03.409222',NULL,'rua dos coqueiros, 11,jd são Paulo, americana','paulo@email.com','Paulo Henrique Cardoso','$2a$10$gU8FvKngmzZoaPKPwtLNNOwo7hJBxT3OXh9DWJ1pTWg2E3z69CaT2','19974569823','RECEBEDOR'),
+(true,'2024-09-22 16:42:07.255167','2024-09-22 16:55:24.236245','rua da felicidade,  44, jd alvorada, americana','maria@email.com','Maria Silva Santos','$2a$10$EVRtcouo8BGwVut4kp149uIk.n24JoUs833p6qCc7nyQPzDEvKlru','19998653256','RECEBEDOR');
+
+
+// algumas doações criadas
+INSERT INTO tb_order (created_at,donor_id,receiver_id,updated_at,estimated_price,product_name,status) VALUES
+('2024-09-22 16:56:32.934681',1,3,NULL,'59,90','Leite Nan recém nascido 800g','AGUARDANDO'),
+('2024-09-22 17:01:26.024436',1,3,NULL,'62,99','Leite Aptamil 800g','AGUARDANDO'),
+('2024-09-22 17:02:40.382365',1,6,NULL,'58,99','Leite Neslac conforme 1kg','AGUARDANDO'),
+('2024-09-22 17:03:22.313608',1,6,NULL,'33,99','Leite Nestrogeno 400g','AGUARDANDO'),
+('2024-09-22 17:04:36.563376',1,8,NULL,'67,55','Leite Aptamil pro expert 400g','AGUARDANDO'),
+('2024-09-22 17:05:12.529352',1,8,NULL,'70,59','Leite Aptamil Premium 800g','AGUARDANDO');
+
+
+
+DELETE FROM tb_order WHERE id = 11;

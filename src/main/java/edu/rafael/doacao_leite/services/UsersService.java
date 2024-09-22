@@ -5,6 +5,7 @@ import edu.rafael.doacao_leite.controllers.dtos.UserResponseDto;
 import edu.rafael.doacao_leite.entities.Users;
 import edu.rafael.doacao_leite.entities.enums.Role;
 import edu.rafael.doacao_leite.repositories.UsersRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class UsersService {
 
     @Autowired
@@ -28,6 +30,7 @@ public class UsersService {
         user.setActive(true);
 
         user = usersRepository.save(user);
+        log.info("Usuário criado: " + user);
         return new UserDto(user);
     }
 
@@ -35,10 +38,10 @@ public class UsersService {
         UserDto dto = getUserDtoById(request.id());
         Users updateUser = new Users(request);
 
-        updateUser.setPassword(new BCryptPasswordEncoder().encode(request.password()));
         updateUser.setCreatedAt(dto.createdAt()); //mantem a data de criação do usuário que está no banco
 
         updateUser = usersRepository.save(updateUser);
+        log.info("Usuário atualizado: " + updateUser);
         return new UserDto(updateUser);
     }
 

@@ -5,12 +5,14 @@ import edu.rafael.doacao_leite.controllers.dtos.OrderResponseDto;
 import edu.rafael.doacao_leite.entities.Order;
 import edu.rafael.doacao_leite.entities.enums.OrderStatus;
 import edu.rafael.doacao_leite.repositories.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class OrderService {
 
     @Autowired
@@ -81,6 +83,7 @@ public class OrderService {
         order.setStatus(OrderStatus.AGUARDANDO);
         order.setDonor(usersService.getUserById(1L)); //seta um doador padrão ao criar o pedido
         order = orderRepository.save(order);
+        log.info("Doação criada: " + order);
         return new OrderDto(order);
     }
 
@@ -102,6 +105,7 @@ public class OrderService {
         Order updateOrder = new Order(request);
         updateOrder.setCreatedAt(dto.createdAt()); //mantem a data de criação do pedido que está no banco
         updateOrder = orderRepository.save(updateOrder);
+        log.info("Doação atualizada: " + updateOrder);
         return new OrderDto(updateOrder);
     }
 }

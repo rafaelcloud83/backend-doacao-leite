@@ -5,6 +5,7 @@ import edu.rafael.doacao_leite.controllers.dtos.LoginResponseDto;
 import edu.rafael.doacao_leite.entities.Users;
 import edu.rafael.doacao_leite.repositories.UsersRepository;
 import edu.rafael.doacao_leite.security.TokenService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class AuthenticationController {
 
     @Autowired
@@ -36,6 +38,8 @@ public class AuthenticationController {
         var token = tokenService.generateToken((Users) auth.getPrincipal());
 
         var user = usersRepository.getEmail(data.email());
+
+        log.info("Usuário autenticado: " + user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new LoginResponseDto(
                 token,

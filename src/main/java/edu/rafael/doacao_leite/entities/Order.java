@@ -42,12 +42,6 @@ public class Order implements Serializable {
     @JoinColumn(name = "donor_id") //cria no banco
     private Users donor;
 
-//    public Order(String productName, Users receiver, Users donor) {
-//        this.productName = productName;
-//        this.receiver = receiver;
-//        this.donor = donor;
-//    }
-
     public Order(String productName, String estimatedPrice, OrderStatus status, Instant createdAt, Instant updatedAt, Users receiver, Users donor) {
         this.productName = productName;
         this.estimatedPrice = estimatedPrice;
