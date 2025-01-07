@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>edu.rafael</groupId>
 	<artifactId>doacao-leite</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>doacao-leite</name>
 	<description>Projeto de api rest com spring para doação de leite em pó</description>
 	<url/>

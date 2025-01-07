@@ -53,5 +53,14 @@ INSERT INTO tb_order (created_at,donor_id,receiver_id,updated_at,estimated_price
 ('2024-09-22 17:05:12.529352',1,8,NULL,'70,59','Leite Aptamil Premium 800g','AGUARDANDO');
 
 
-
 DELETE FROM tb_order WHERE id = 11;
+
+
+// apagar os dados de uma tabela e zerar o auto increment do id
+TRUNCATE TABLE tb_order RESTART IDENTITY;
+TRUNCATE TABLE tb_users RESTART IDENTITY;
+
+
+// apagar as tabelas
+DROP TABLE tb_order;
+DROP TABLE tb_users;
