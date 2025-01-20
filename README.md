@@ -23,6 +23,8 @@ O aplicativo tem o objetivo de fazer a conexão entre o Recebedor e o Doador de 
 * [Configuração das variáveis de ambiente localmente](#configuração-das-variáveis-de-ambiente-localmente)
 * [Configuração do application.properties](#configuração-do-applicationproperties)
 * [Execução do projeto localmente](#execução-do-projeto-localmente)
+    * [com execução manual do jar](#com-execução-manual-do-jar)
+    * [com imagem no Docker Hub](#com-imagem-no-docker-hub)
 * [Endpoints](#endpoints)
     * [Públicos](#públicos)
     * [Usuários](#usuários)
@@ -119,15 +121,14 @@ Executar com o banco de dados PostgreSQL.
 ```text
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-#spring.jpa.hibernate.ddl-auto=create
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 
 spring.datasource.driver-class-name=org.postgresql.Driver
-spring.datasource.url=jdbc:postgresql://localhost:5432/doacao
-spring.datasource.username=postgres
-spring.datasource.password=postgres
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/doacao}
+spring.datasource.username=${DB_USER:postgres}
+spring.datasource.password=${DB_PASSWORD:postgres}
 ```
 
 ### application-prod.properties
@@ -159,6 +160,8 @@ Para rodar a aplicação, será necessário ter instalado:
 * **Docker - utilizei a versão 27.3.1**
 * **Docker Compose - utilizei a versão 2.15.1**
 
+### com execução manual do jar
+
 Primeiramente clone o projeto com o comando:
 
 - Clonar com HTTPS
@@ -170,24 +173,30 @@ git clone https://github.com/rafaelcloud83/backend-doacao-leite.git
 Depois de clonar o projeto, realize o `build` sem os testes da aplicação indo no diretório raiz e executando o comando:
 
 ```shell
-mvn clean install -DskipTests
+./mvnw clean install -DskipTests
 ```
 
 Depois de realizar o `build da aplicação`, será necessário subir o PostgreSQL com o Docker Compose utilizando o comando:
 
 ```shell
-docker-compose up -d
+docker-compose -f docker-compose-postgresql.yaml up -d
 ```
 
 Depois de subir o PostgreSQL, execute a aplicação com o comando:
 
 ```shell
-mvn spring-boot:run
-```
-OU
-```shell
 java -jar target/doacao-leite-0.0.1.jar
 ```
+
+### com imagem no Docker Hub
+
+Para executar o projeto com a imagem no Docker Hub, basta executar o comando:
+
+```shell
+docker-compose up -d
+```
+
+<br>
 
 ## Endpoints
 
