@@ -1,0 +1,10 @@
+.idea
+data
+#target
+.dockerignore
+.gitignore
+docker-compose.yaml
+Dockerfile
+Insomnia.json
+README.md
+sql.txt
