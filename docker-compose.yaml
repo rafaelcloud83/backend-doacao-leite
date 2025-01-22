@@ -14,7 +14,7 @@ services:
       - app-network
 
   backend:
-    image: rafaelcloud83/doa-leite:1.0
+    image: rafaelcloud83/doaleite:1.0
     container_name: backend
     restart: always
     ports:
