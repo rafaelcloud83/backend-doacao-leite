@@ -51,11 +51,11 @@ Para visualizar o repositório do aplicativo em Flutter, acesse: https://github.
 
 [voltar ao início](#sumário)
 
-* **Java 17**
+* **Java 21**
 * **Spring Boot 3**
 * **Spring Security 6**
 * **API REST**
-* **IntelliJ IDEA Community Edition 2024**
+* **IntelliJ IDEA Community Edition 2025**
 * **PostgreSQL 15**
 * **DBGate ou DBeaver**
 * **Insomnia**
@@ -107,6 +107,12 @@ IMPORTANTE: Para trocar o profile que será executado, basta alterar a linha "sp
 spring.application.name=doacao-leite
 spring.profiles.active=dev
 
+spring.jpa.generate-ddl=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.datasource.driver-class-name=org.postgresql.Driver
+
 jwt.secret=${JWTSECRET:mysecretkey}
 jwt.expiration=${JWTEXPIRATION:168}
 
@@ -119,13 +125,6 @@ server.tomcat.max-http-header-size=16384
 Executar com o banco de dados PostgreSQL.
 
 ```text
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-
-spring.datasource.driver-class-name=org.postgresql.Driver
 spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/doacao}
 spring.datasource.username=${DB_USER:postgres}
 spring.datasource.password=${DB_PASSWORD:postgres}
@@ -136,11 +135,6 @@ spring.datasource.password=${DB_PASSWORD:postgres}
 IMPORTANTE: Executar esse profile quando for subir o projeto pra produção, lembre-se de criar as 3 variáveis de ambiente no servidor de acordo com os dados do PostgreSQL no servidor.
 
 ```text
-spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
-spring.jpa.hibernate.ddl-auto=update
-
-spring.datasource.driver-class-name=org.postgresql.Driver
 spring.datasource.url=${DB_URL}
 spring.datasource.username=${DB_USER}
 spring.datasource.password=${DB_PASSWORD}
@@ -155,9 +149,9 @@ IMPORTANTE: Por padrão o repositório está com o arquivo [application.properti
 Para rodar a aplicação, será necessário ter instalado:
 
 * **Git**
-* **Java 17**
+* **Java 21**
 * **Maven - utilizei a versão 3.9.9**
-* **Docker - utilizei a versão 27.3.1**
+* **Docker - utilizei a versão 28.1.1**
 * **Docker Compose - utilizei a versão 2.15.1**
 
 ### com execução manual do jar
@@ -170,7 +164,13 @@ Primeiramente clone o projeto com o comando:
 git clone https://github.com/rafaelcloud83/backend-doacao-leite.git
 ```
 
-Depois de clonar o projeto, realize o `build` sem os testes da aplicação indo no diretório raiz e executando o comando:
+Entre no diretório raiz do projeto com o comando:
+
+```shell
+cd backend-doacao-leite
+```
+
+Depois de clonar o projeto e estar no diretório raiz, realize o `build` sem os testes da aplicação executando o comando:
 
 ```shell
 ./mvnw clean install -DskipTests
