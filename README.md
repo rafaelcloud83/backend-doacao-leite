@@ -24,6 +24,7 @@ O aplicativo tem o objetivo de fazer a conexão entre o Recebedor e o Doador de 
 * [Configuração do application.properties](#configuração-do-applicationproperties)
 * [Execução do projeto localmente](#execução-do-projeto-localmente)
     * [com execução manual do jar](#com-execução-manual-do-jar)
+    * [com imagem Docker Local](#com-imagem-docker-local)
     * [com imagem no Docker Hub](#com-imagem-no-docker-hub)
 * [Endpoints](#endpoints)
     * [Públicos](#públicos)
@@ -188,12 +189,32 @@ Depois de subir o PostgreSQL, execute a aplicação com o comando:
 java -jar target/doacao-leite-0.0.1.jar
 ```
 
-### com imagem no Docker Hub
+### com imagem Docker Local
 
-Para executar o projeto com a imagem no Docker Hub, basta executar o comando:
+Para executar o projeto com a imagem Docker Local, basta executar o comando no diretório raiz do projeto:
 
 ```shell
-docker-compose up -d
+docker-compose up --build -d
+```
+
+Para parar o projeto, basta executar o comando:
+
+```shell
+docker-compose down
+```
+
+### com imagem no Docker Hub
+
+Para executar o projeto com a imagem no Docker Hub, basta executar o comando no diretório raiz do projeto:
+
+```shell
+docker-compose -f docker-compose-remoto.yaml up -d
+```
+
+Para parar o projeto, basta executar o comando:
+
+```shell
+docker-compose -f docker-compose-remoto.yaml down
 ```
 
 <br>
